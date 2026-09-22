@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="jv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 PETUALANGAN BASA JAWA – Sinau Basa Jawa kanthi Nyenengake</title>
+    <!-- Tailwind CSS for modern, responsive, colorful UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fef3c7 0%, #d1fae5 50%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+        .javanese-pattern {
+            background-color: #065f46;
+            background-image: radial-gradient(#047857 1px, transparent 1px), radial-gradient(#047857 1px, #065f46 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="javanese-pattern text-white shadow-lg sticky top-0 z-50 border-b-4 border-amber-400">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-amber-400 text-emerald-950 p-2 rounded-2xl font-black text-xl shadow">🌿</div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-extrabold tracking-wide text-amber-200">PETUALANGAN BASA JAWA</h1>
+                    <p class="text-xs text-emerald-100 font-medium">Sinau Basa Jawa kanthi Nyenengake (SD)</p>
+                </div>
+            </div>
+            <div id="userStatus" class="hidden items-center space-x-4 bg-emerald-900/80 px-4 py-1.5 rounded-full border border-emerald-600 text-sm">
+                <div>👋 <span id="displayName" class="font-bold text-amber-300">Siswa</span></div>
+                <div class="bg-amber-500 text-emerald-950 px-2.5 py-0.5 rounded-full font-bold text-xs shadow-inner">
+                    ⭐ Skor: <span id="displayScore">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-6 my-auto">
+
+        <!-- VIEW 1: WELCOME SCREEN -->
+        <section id="viewWelcome" class="bg-white/90 backdrop-blur rounded-3xl card-shadow p-6 md:p-10 text-center border-4 border-emerald-600/20">
+            <div class="max-w-md mx-auto">
+                <div class="w-28 h-28 mx-auto bg-emerald-100 rounded-full flex items-center justify-center text-5xl mb-6 shadow-inner animate-float border-4 border-emerald-500">
+                    🧑‍🎓
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-800 mb-2">Wilujeng Rawuh!</h2>
+                <p class="text-sm md:text-base text-slate-600 mb-6">Ayo dadi <strong>Petualang Cilik Basa Jawa</strong> lan jelajah 4 Wulangan sinau!</p>
+                
+                <div class="bg-emerald-50 border-2 border-emerald-200 p-4 rounded-2xl mb-6 text-left">
+                    <label for="inputName" class="block text-xs font-bold text-emerald-900 uppercase tracking-wider mb-2">Jenengmu (Nama Siswa):</label>
+                    <input type="text" id="inputName" placeholder="Contoh: Dimas / Siti" class="w-full px-4 py-3 rounded-xl border-2 border-emerald-300 focus:outline-none focus:border-emerald-600 text-slate-800 font-semibold text-base bg-white shadow-sm">
+                </div>
+
+                <button onclick="startAdventure()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transform transition active:scale-95 text-base md:text-lg flex items-center justify-center space-x-2">
+                    <span>🚀 MIWITI PETUALANGAN</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 2: GAME GUIDE / INSTRUCTIONS -->
+        <section id="viewGuide" class="hidden bg-white/95 backdrop-blur rounded-3xl card-shadow p-6 md:p-8 border-4 border-amber-500/30">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="text-4xl">📜</div>
+                <div>
+                    <h2 class="text-xl md:text-2xl font-extrabold text-emerald-900">Petunjuk Permainan</h2>
+                    <p class="text-sm text-emerald-700">Gatekna andharan ing ngisor iki sadurunge miwiti!</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                    <h3 class="font-bold text-emerald-900 mb-2 flex items-center"><span class="mr-2">🎯</span> 4 Dunia Wulangan:</h3>
+                    <ul class="space-y-1 text-slate-700 text-xs md:text-sm">
+                        <li>🌾 <strong>Wulangan 1:</strong> Kasarasan</li>
+                        <li>🤝 <strong>Wulangan 2:</strong> Kerukunan</li>
+                        <li>🏡 <strong>Wulangan 3:</strong> Pakulinan</li>
+                        <li>📜 <strong>Wulangan 4:</strong> Aksara Jawa</li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                    <h3 class="font-bold text-amber-900 mb-2 flex items-center"><span class="mr-2">⭐</span> Ketentuan Kuis:</h3>
+                    <ul class="space-y-1 text-slate-700 text-xs md:text-sm">
+                        <li>📝 Total tepat 50 soal pilihan ganda.</li>
+                        <li>🏆 Saben jawaban bener entuk 20 poin (Maks 1000).</li>
+                        <li>📚 Bebas mbalik sinau materi kapan wae.</li>
+                        <li>🎖️ Entuk sertifikat digital sawise rampung.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="showMap()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3.5 px-8 rounded-2xl shadow-lg transform transition active:scale-95 text-base">
+                    🗺️ Bukak Peta Petualangan
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 3: ADVENTURE MAP (4 WORLDS) -->
+        <section id="viewMap" class="hidden space-y-6">
+            <div class="bg-white/90 backdrop-blur rounded-3xl card-shadow p-6 text-center border-4 border-emerald-600/20">
+                <h2 class="text-2xl font-extrabold text-emerald-900 mb-1">Peta Petualangan Basa Jawa</h2>
+                <p class="text-sm text-slate-600">Pilih salah siji Wulangan kanggo sinau utawa miwiti kuis!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- WORLD 1 -->
+                <div class="bg-white rounded-3xl card-shadow p-5 border-2 border-emerald-400 flex flex-col justify-between hover:border-emerald-600 transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">DUNIA 1</span>
+                            <span class="text-2xl">🌾</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-emerald-900 mb-1">Wulangan 1 – Kasarasan</h3>
+                        <p class="text-xs text-slate-600 mb-4">Materi teks eksposisi kasarasan, tembang macapat Maskumambang, micara, lan nulis.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="openMateri(1)" class="flex-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-bold py-2 px-3 rounded-xl text-xs transition">📚 Sinau Materi</button>
+                        <button onclick="startQuiz(1)" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl text-xs transition">🎯 Kuis W1 (13 Soal)</button>
+                    </div>
+                </div>
+
+                <!-- WORLD 2 -->
+                <div class="bg-white rounded-3xl card-shadow p-5 border-2 border-teal-400 flex flex-col justify-between hover:border-teal-600 transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full">DUNIA 2</span>
+                            <span class="text-2xl">🤝</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-teal-900 mb-1">Wulangan 2 – Kerukunan</h3>
+                        <p class="text-xs text-slate-600 mb-4">Materi teks eksposisi karukunan, maca lancar, pitutur luhur, lan nulis karukunan.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="openMateri(2)" class="flex-1 bg-teal-100 hover:bg-teal-200 text-teal-900 font-bold py-2 px-3 rounded-xl text-xs transition">📚 Sinau Materi</button>
+                        <button onclick="startQuiz(2)" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-3 rounded-xl text-xs transition">🎯 Kuis W2 (12 Soal)</button>
+                    </div>
+                </div>
+
+                <!-- WORLD 3 -->
+                <div class="bg-white rounded-3xl card-shadow p-5 border-2 border-amber-400 flex flex-col justify-between hover:border-amber-600 transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">DUNIA 3</span>
+                            <span class="text-2xl">🏡</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-amber-900 mb-1">Wulangan 3 – Pakulinan</h3>
+                        <p class="text-xs text-slate-600 mb-4">Materi teks prosedur (cara gawe barang, nggunakake, nindakake pakaryan), maca, lan pakulinan.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="openMateri(3)" class="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold py-2 px-3 rounded-xl text-xs transition">📚 Sinau Materi</button>
+                        <button onclick="startQuiz(3)" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-3 rounded-xl text-xs transition">🎯 Kuis W3 (13 Soal)</button>
+                    </div>
+                </div>
+
+                <!-- WORLD 4 -->
+                <div class="bg-white rounded-3xl card-shadow p-5 border-2 border-indigo-400 flex flex-col justify-between hover:border-indigo-600 transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">DUNIA 4</span>
+                            <span class="text-2xl">📜</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-900 mb-1">Wulangan 4 – Aksara Jawa</h3>
+                        <p class="text-xs text-slate-600 mb-4">Materi sandhangan panyigeg wanda lan wyanjana, maca teks, micara, lan nulis.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="openMateri(4)" class="flex-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold py-2 px-3 rounded-xl text-xs transition">📚 Sinau Materi</button>
+                        <button onclick="startQuiz(4)" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 rounded-xl text-xs transition">🎯 Kuis W4 (12 Soal)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master Quiz Button -->
+            <div class="bg-gradient-to-r from-emerald-800 to-teal-900 rounded-3xl card-shadow p-6 text-white text-center">
+                <h3 class="text-xl font-bold mb-2">⚡ Kuis Petualangan Lengkap (50 Soal)</h3>
+                <p class="text-xs md:text-sm text-emerald-100 mb-4">Siap ngrampungake kabeh 50 soal saka kabeh wulangan kanggo entuk sertifikat?</p>
+                <button onclick="startFullQuiz()" class="bg-amber-400 hover:bg-amber-500 text-emerald-950 font-extrabold py-3 px-8 rounded-2xl shadow-lg transition text-base">
+                    🚀 Miwiti Kuis 50 Soal Utuh
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 4: MATERI LEARNING SCREEN -->
+        <section id="viewMateri" class="hidden bg-white/95 backdrop-blur rounded-3xl card-shadow p-6 md:p-8 border-4 border-emerald-600/20">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <div>
+                    <span id="materiBadge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">WULANGAN</span>
+                    <h2 id="materiTitle" class="text-xl md:text-2xl font-extrabold text-emerald-900 mt-1">Judul Materi</h2>
+                </div>
+                <button onclick="backToMap()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-xl text-xs transition">
+                    ← Bali menyang Peta
+                </button>
+            </div>
+
+            <div id="materiContentArea" class="space-y-4 text-sm md:text-base text-slate-700 leading-relaxed mb-8">
+                <!-- Dynamically populated learning content -->
+            </div>
+
+            <div class="flex justify-between items-center bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                <span class="text-xs text-emerald-900 font-medium">💡 Pitutur: Wis rampung sinau materi iki? Ayo jajal kuis!</span>
+                <button onclick="backToQuizFromMateri()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl text-xs shadow transition">
+                    ↩ Bali menyang Kuis
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 5: QUIZ INTERACTIVE SCREEN -->
+        <section id="viewQuiz" class="hidden bg-white/95 backdrop-blur rounded-3xl card-shadow p-6 md:p-8 border-4 border-emerald-600/20">
+            <!-- Quiz Top Header -->
+            <div class="flex flex-wrap justify-between items-center mb-4 border-b pb-3 gap-2">
+                <div>
+                    <span id="quizWulanganTag" class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Wulangan 1</span>
+                    <h3 id="quizProgressNum" class="text-base font-extrabold text-emerald-900 mt-1">SOAL 1 SAKA 50</h3>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-xs font-bold bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full">⭐ Skor: <span id="quizScoreVal">0</span></span>
+                    <button onclick="openMateriFromQuiz()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-1.5 px-3 rounded-xl text-xs shadow transition flex items-center space-x-1">
+                        <span>📚 Balik Menyang Materi</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-200 h-3 rounded-full mb-6 overflow-hidden">
+                <div id="quizProgressBar" class="bg-emerald-600 h-full w-[2%] transition-all duration-300"></div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="mb-6">
+                <div class="flex items-start space-x-3 mb-4">
+                    <div class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-lg uppercase" id="quizDifficulty">Gampang</div>
+                </div>
+                <!-- Image container if question has image -->
+                <div id="quizImageContainer" class="hidden mb-4 p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+                    <div id="quizImageVisual" class="text-4xl mb-1">🖼️</div>
+                    <p id="quizImageCaption" class="text-xs text-slate-500 italic">Ilustrasi / Aksara Jawa</p>
+                </div>
+                <h4 id="quizQuestionText" class="text-base md:text-lg font-bold text-slate-900 leading-snug">
+                    Pertanyaan kuis bakal katon ing kene...
+                </h4>
+            </div>
+
+            <!-- Options Grid -->
+            <div id="quizOptionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                <!-- Options populated dynamically -->
+            </div>
+
+            <!-- Feedback Area -->
+            <div id="quizFeedbackBox" class="hidden p-4 rounded-2xl mb-4 border text-sm">
+                <div id="feedbackTitle" class="font-extrabold mb-1">✓ WANGSULAN BENER!</div>
+                <p id="feedbackText" class="text-xs md:text-sm text-slate-700">Panjelasan ringkes...</p>
+            </div>
+
+            <!-- Next Button -->
+            <div class="text-right">
+                <button id="btnNextQuiz" onclick="nextQuizQuestion()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-2xl shadow transition text-sm">
+                    ➡ Soal Sabanjure
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 6: FINAL RESULT SCREEN -->
+        <section id="viewResult" class="hidden bg-white/95 backdrop-blur rounded-3xl card-shadow p-6 md:p-10 text-center border-4 border-amber-500/30">
+            <div class="w-20 h-20 mx-auto bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-4xl mb-4 shadow border-2 border-amber-400 animate-bounce">
+                🏆
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-900 mb-1">🎉 PETUALANGAN RAMPUNG! 🎉</h2>
+            <p id="resultStudentName" class="text-base text-emerald-700 font-semibold mb-6">Wilujeng, Siswa!</p>
+
+            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-3xl p-6 max-w-md mx-auto mb-6">
+                <div class="text-4xl font-black text-emerald-900 mb-1"><span id="finalScoreVal">1000</span> <span class="text-lg font-normal text-slate-600">/ 1000</span></div>
+                <div class="text-xs uppercase tracking-widest text-emerald-700 font-bold mb-4">Skor Totalmu</div>
+                
+                <div class="grid grid-cols-2 gap-3 text-sm border-t border-emerald-200 pt-4">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm">
+                        <div class="text-emerald-600 font-extrabold text-lg" id="finalCorrectCount">50</div>
+                        <div class="text-xs text-slate-500">Wangsulan Bener</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm">
+                        <div class="text-rose-600 font-extrabold text-lg" id="finalWrongCount">0</div>
+                        <div class="text-xs text-slate-500">Wangsulan Salah</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="badgeRewardBox" class="inline-block bg-amber-100 text-amber-900 font-extrabold px-6 py-2.5 rounded-full text-sm mb-6 border border-amber-300 shadow-sm">
+                🏆 JAGO BASA JAWA
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="showCertificate()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-2xl shadow transition text-sm flex items-center space-x-2">
+                    <span>🏆 Deleng Sertifikat</span>
+                </button>
+                <button onclick="restartQuiz()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl transition text-sm flex items-center space-x-2">
+                    <span>🔄 Ulangi Kuis</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 7: DIGITAL CERTIFICATE SCREEN -->
+        <section id="viewCertificate" class="hidden bg-white rounded-3xl card-shadow p-6 md:p-8 border-8 border-amber-400 relative">
+            <div class="text-center border-4 border-dashed border-emerald-600 p-6 rounded-2xl bg-emerald-50/50">
+                <div class="text-emerald-800 font-bold text-xs tracking-widest mb-1">GIGA INOVATION EDUCATION</div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-900 mb-1">SERTIFIKAT PANGHARGAAN</h2>
+                <p class="text-xs text-slate-600 italic mb-4">Dipunparingaken dhumateng:</p>
+
+                <div class="text-xl md:text-2xl font-black text-amber-700 border-b-2 border-amber-400 pb-1 inline-block px-6 mb-4" id="certStudentName">
+                    NAMA SISWA
+                </div>
+
+                <p class="text-xs md:text-sm text-slate-700 max-w-md mx-auto mb-6">
+                    amargi sampun sukses ngrampungake kabeh tantangan pasinaon lan kuis sajroning game edukatif:
+                </p>
+
+                <div class="text-lg font-extrabold text-emerald-900 bg-white py-2 px-6 rounded-2xl shadow-sm inline-block border border-emerald-200 mb-6">
+                    🌿 "PETUALANGAN BASA JAWA" 🌿
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-xs max-w-sm mx-auto mb-6 bg-white p-3 rounded-xl border">
+                    <div>
+                        <div class="font-bold text-emerald-900" id="certScore">1000 / 1000</div>
+                        <div class="text-slate-500 text-[10px]">Skor Total</div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-emerald-900" id="certCorrect">50 saka 50</div>
+                        <div class="text-slate-500 text-[10px]">Bener</div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-emerald-900" id="certDate">2026-09-22</div>
+                        <div class="text-slate-500 text-[10px]">Tanggal</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-end text-[11px] text-slate-600 border-t pt-4 mt-2">
+                    <div class="text-left">
+                        <p class="font-bold text-emerald-900">Developer:</p>
+                        <p>Giga Inovation</p>
+                        <p class="text-emerald-700 font-semibold">📞 081329200985</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-1">⭐ 🌟 ⭐</div>
+                        <p class="font-bold text-amber-700">Petualang Cilik Basa Jawa</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-emerald-900">Status:</p>
+                        <p class="text-emerald-700 font-bold">LULUS LENGKAP</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-6 flex justify-center space-x-3">
+                <button onclick="backToResult()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-6 rounded-xl text-xs transition">
+                    ← Bali menyang Hasil
+                </button>
+                <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl text-xs shadow transition">
+                    🖨️ Cetak / Simpen Sertifikat
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Developer -->
+    <footer class="text-center py-4 text-xs text-slate-600 font-medium bg-white/60 border-t border-slate-200">
+        Developer: Giga Inovation | 📞 081329200985 &bull; Petualangan Basa Jawa SD
+    </footer>
+
+    <script>
+        // --- APPLICATION STATE ---
+        let studentName = "";
+        let score = 0;
+        let currentQuizList = [];
+        let currentQuizIndex = 0;
+        let userAnswersRecord = [];
+        let activeWulanganFilter = null; // null means full 50 quiz
+
+        // --- DATABASE: EXACT 50 QUESTIONS (W1:13, W2:12, W3:13, W4:12) ---
+        const allQuestions = [
+            // ================= WULANGAN 1 – KASARASAN (13 Soal) =================
+            {
+                id: 1, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Teks sing asipat menehi katrangan utawa informasi ngenani kesehatan utawa kasarasan diarani teks apa?",
+                options: ["A. Teks Narasi", "B. Teks Eksposisi Kasarasan", "C. Teks Deskripsi", "D. Teks Crita Cekak"],
+                answer: 1,
+                explanation: "Teks eksposisi kasarasan yaiku teks sing tujuane menehi katrangan utawa informasi babagan kesehatan utawa kasarasan marang wong akeh."
+            },
+            {
+                id: 2, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Miturut materi kasarasan, supaya awak tansah sehat lan ora gampang lara, tumindak apa sing kudu ditindakake saben dina?",
+                options: ["A. Turu sedina muput", "B. Jajan sembarangan ing pinggir dalan", "C. Njaga kebersihan awak lan lingkungan", "D. Ora gelem adus saben esuk"],
+                answer: 2,
+                explanation: "Njaga kebersihan awak lan lingkungan kalebu cara utama kanggo njaga kasarasan supaya tetep sehat."
+            },
+            {
+                id: 3, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Tembang macapat sing disinaoni ing Wulangan 1 babagan kasarasan yaiku tembang...",
+                options: ["A. Maskumambang", "B. Kinanthi", "C. Gambuh", "D. Dhandhanggula"],
+                answer: 0,
+                explanation: "Ing Wulangan 1, materi maca teks sastra fokus marang Tembang Macapat Maskumambang."
+            },
+            {
+                id: 4, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🔴 Menantang",
+                hasImage: true, imgEmoji: "🎵🌾", imgCap: "Tembang Macapat Maskumambang",
+                q: "Apa ciri utawa watek umum saka Tembang Macapat Maskumambang sing ana gandhengane karo rasa pangrasa?",
+                options: ["A. Bungah lan seneng banget", "B. Susah, nelangsa, utawa welas asih", "C. Semangat lan kobong kobongan", "D. Nesu lan galak"],
+                answer: 1,
+                explanation: "Tembang Maskumambang racake nggambarake rasa susah, nelangsa, utawa welas asih."
+            },
+            {
+                id: 5, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Nalika micara (ngomong) marang wong tuwa utawa bapak ibu guru babagan kesehatan, basa apa sing becik digunakake?",
+                options: ["A. Basa Ngoko Lugu", "B. Basa Ngoko Andhap", "C. Basa Krama Alus", "D. Basa Pasar"],
+                answer: 2,
+                explanation: "Basa Krama Alus digunakake nalika micara marang wong sing luwih tuwa kanggo ngetokake rasa ngajeni."
+            },
+            {
+                id: 6, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Ukara panjaluk sing bener kanggo njaluk tulung dijupukake obat nalika lara yaiku...",
+                options: ["A. Jupukno obat saiki!", "B. Dhawuh Krama, kula nyuwun tulung pundhutake obat.", "C. Kowe njupuk obat kono!", "D. Obatku endi ora kok jupuk?"],
+                answer: 1,
+                explanation: "Nyuwun tulung kanthi sopan nuduhake unggah-ungguh basa sing bener."
+            },
+            {
+                id: 7, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Tembung 'sehat' yen disesuaikan karo teges bener ing wulangan kasarasan teges padhanipun yaiku...",
+                options: ["A. Gerah", "B. Waras utawa kasarasan", "C. Lemes", "D. Pucet"],
+                answer: 1,
+                explanation: "Kasarasan tegese kaséhatan utawa kahanan awak sing waras lan ora lara."
+            },
+            {
+                id: 8, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Yen ana kanca sing lagi lara ing omah sakit, tumindak becik sing kudu ditindakake yaiku...",
+                options: ["A. Diantemi supados gelis mantun", "B. Didhedheweke wae", "C. Didangekake lan dijenguk sarta didongakake waras", "D. Dipoyoki amarga lara"],
+                answer: 2,
+                explanation: "Jenguk kanca sing lara lan ndongakake supaya gelis waras iku tumindak luhur."
+            },
+            {
+                id: 9, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Nulis ukara babagan kasarasan kudu diwiwiti nganggo aksara gedhe lan dipungkasi nganggo...",
+                options: ["A. Tanda pitakon (?)", "B. Tanda titik (.)", "C. Tanda seru (!)", "D. Tanda koma (,)"],
+                answer: 1,
+                explanation: "Ukara warta utawa pratelan lumrahe dipungkasi nganggo tanda titik."
+            },
+            {
+                id: 10, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Olahraga sing rutin saben esuk bisa nggawe awak dadi...",
+                options: ["A. Gampang kesel lan sakit", "B. Kendo lan lemes", "C. Segae, kuwat, lan seger (sehat)", "D. Korupsi wektu"],
+                answer: 2,
+                explanation: "Olahraga rutin minangka perangan penting kanggo njaga kasarasan raga."
+            },
+            {
+                id: 11, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Sikil lara utawa keri amarga ora diresiki. Tumindak sing bener sadurunge turu yaiku...",
+                options: ["A. Raos sikil lan tangan", "B. Ora usah wisuh", "C. Langsung turu kemproh", "D. Mlayu-mlayu"],
+                answer: 0,
+                explanation: "Wisuh sikil lan tangan sadurunge turu bisa njaga kabersihan lan kasarasan."
+            },
+            {
+                id: 12, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Teks eksposisi babagan kasarasan biasane ngemot babagan apa?",
+                options: ["A. Cara nggawe dolanan", "B. Pentinge mangan panganan bergizi lan njaga kesehatan", "C. Crita dongeng kewan", "D. Carane nulis aksara jawa"],
+                answer: 1,
+                explanation: "Teks eksposisi kasarasan nerangake pentinge gizi lan kesehatan."
+            },
+            {
+                id: 13, wulangan: 1, wulanganName: "Wulangan 1 – Kasarasan", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Gladhen Pasinaon Wulangan 1 nyakup kabeh materi ing ngisor iki, KECUALI...",
+                options: ["A. Nyemak teks eksposisi kasarasan", "B. Maca tembang Maskumambang", "C. Nulis aksara jawa wyanjana", "D. Micara bab kasarasan"],
+                answer: 2,
+                explanation: "Nulis aksara jawa wyanjana iku materi ing Wulangan 4, dudu Wulangan 1."
+            },
+
+            // ================= WULANGAN 2 – KERUKUNAN (12 Soal) =================
+            {
+                id: 14, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Teks eksposisi ing Wulangan 2 mligi mbahas babagan apa?",
+                options: ["A. Kasarasan", "B. Karukunan (urip rukun)", "C. Pakulinan gawe meja", "D. Sandhangan wyanjana"],
+                answer: 1,
+                explanation: "Wulangan 2 fokus marang materi kerukunan utawa karukunan ing sakiwa tengen."
+            },
+            {
+                id: 15, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Urip rukun ing lingkungan sekolah bisa ditunjukake kanthi cara...",
+                options: ["A. rerebut dolanan karo kanca", "B. srawung lan tetulung marang kanca sakelas", "C. muring-muring yen disilih pulpen", "D. ora gelem piket kelas"],
+                answer: 1,
+                explanation: "Tetulung lan srawung apik karo kanca nuduhake kerukunan ing sekolah."
+            },
+            {
+                id: 16, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Maca teks kanthi lancer tegese maca kanthi...",
+                options: ["A. Lha-lho lan macet-macet", "B. Swara cetha, lafal bener, lan ora tersendat-sendat", "C. Meneng bae tanpa swara", "D. Kanthi mlayu"],
+                answer: 1,
+                explanation: "Maca kanthi lancar tegese swarane cetha lan ora kleru anggone medhot ukara."
+            },
+            {
+                id: 17, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Apa tegese pitutur luhur ngenani karukunan ing bebrayan?",
+                options: ["A. Piwulang becik supaya urip tentrem lan adoh saka pasulayan", "B. Piwulang supaya menang dhewe", "C. Cara pinter golek dhuwit", "D. Aturan gawe omah"],
+                answer: 0,
+                explanation: "Pitutur luhur karukunan yaiku piwulang becik kanggo njaga tentrem lan kerukunan."
+            },
+            {
+                id: 18, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Yen ana tangga teparo sing lagi duwe gawe utawa kesusahan, sikap sing nuduhake kerukunan yaiku...",
+                options: ["A. Eling ora peduli", "B. Melu rewang-rewang utawa ngetokake rasa gotong royong", "C. Ngolok-olok omahe", "D. Nutup lawang rapet-rapet"],
+                answer: 1,
+                explanation: "Gotong royong lan rewang-rewang tangga wujud nyata urip rukun ing masarakat."
+            },
+            {
+                id: 19, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Tembung kosok balen (antonim) saka 'rukun' yaiku...",
+                options: ["A. Tentrem", "B. Rame", "C. Padu / sulaya", "D. Damai"],
+                answer: 2,
+                explanation: "Rukun kosok balene padu utawa sulaya (musuhan)."
+            },
+            {
+                id: 20, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Nalika nulis karangan utawa ukara bab karukunan, tembung sing asring digunakake yaiku...",
+                options: ["A. Padu, musuh, tukaran", "B. Gotong royong, mbantu, tentrem", "C. Lara, dokter, obat", "D. Aksara, sandhangan"],
+                answer: 1,
+                explanation: "Gotong royong lan tentrem minangka tembung konco raket karo karukunan."
+            },
+            {
+                id: 21, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Sikap asah, asih, lan asuh ing kulawarga kalebu wujud...",
+                options: ["A. Karukunan kulawarga", "B. Kasarasan jasmani", "C. Teks prosedur", "D. Sandhangan panyigeg"],
+                answer: 0,
+                explanation: "Asah, asih, asuh mbangun karukunan ing kulawarga."
+            },
+            {
+                id: 22, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🔴 Menantang",
+                hasImage: true, imgEmoji: "🤝🏡", imgCap: "Ilustrasi Gotong Royong Warga",
+                q: "Gatekna ilustrasi gotong royong warga. Manfaat utama saka gotong royong ing lingkungan masyarakat yaiku...",
+                options: ["A. Gawe pakaryan dadi abot lan suwe", "B. Nyebabake pasulayan antarwarga", "C. Gawe pakaryan dadi cepet rampung lan nambah raket", "D. Nglatih supaya bisa nesu"],
+                answer: 2,
+                explanation: "Gotong royong njalari pakaryan dadi enteng lan nggalakake karukunan."
+            },
+            {
+                id: 23, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Yen kanca sakelas ana sing kelangan potlot, tumindak rukun sing bener yaiku...",
+                options: ["A. Ngguyu kanca kasebut", "B. Menehi silihan potlot supaya bisa sinau bareng", "C. Ngomong supaya dibuang wae", "D. Ora gelem nyawang"],
+                answer: 1,
+                explanation: "Nyilihake alat tulis minangka bentuk kerukunan lan welas asih ing kelas."
+            },
+            {
+                id: 24, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Gladhen Pasinaon Wulangan 2 digunakake kanggo...",
+                options: ["A. Evaluasi pemahaman babagan karukunan lan maca lancar", "B. Sinau masak panganan", "C. Nulis aksara jawa", "D. Nyanyi tembang macapat"],
+                answer: 0,
+                explanation: "Gladhen pasinaon minangka evaluasi materi saben wulangan."
+            },
+            {
+                id: 25, wulangan: 2, wulanganName: "Wulangan 2 – Kerukunan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Ukara pitutur luhur: 'Becik ketitik ala ketara'. Apa tegese ukara kasebut?",
+                options: ["A. Tumindak becik lan ala bakal ketok ing tembe burine", "B. Tumindak ala tansah menang", "C. Tumindak becik ora ana gunane", "D. Kabeh tumindak padha wae"],
+                answer: 0,
+                explanation: "Tumindak becik bakal ketara apike, tumindak ala bakal ketara eleke."
+            },
+
+            // ================= WULANGAN 3 – PAKULINAN (13 Soal) =================
+            {
+                id: 26, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Teks prosedur ing Wulangan 3 mbahas babagan cara gawe barang, nggunakake barang, lan...",
+                options: ["A. Cara nindakake pakaryan", "B. Cara nulis aksara jawa", "C. Tembang macapat", "D. Crita rakyat kuno"],
+                answer: 0,
+                explanation: "Teks prosedur nerangake cara gawe barang, nggunakake barang, lan cara nindakake pakaryan."
+            },
+            {
+                id: 27, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Urutan sing bener ing teks prosedur biasane diwiwiti saka...",
+                options: ["A. Asil pungkasan", "B. Bahan lan piranti banjur langkah-langkah", "C. Kesimpulan crita", "D. Jeneng sing nulis"],
+                answer: 1,
+                explanation: "Teks prosedur mesthi mbutuhake bahan/piranti lan urutan langkah-langkah sing jelas."
+            },
+            {
+                id: 28, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Apa tegese tembung 'pakulinan' ing basa Jawa?",
+                options: ["A. Kebiasaan utawa tumindak sing dadi padinan", "B. Panganan enak", "C. Pakeyan adat", "D. Omah tradisional"],
+                answer: 0,
+                explanation: "Pakulinan tegese kebiasaan utawa tumindak sing asring dilakoni saben dina."
+            },
+            {
+                id: 29, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🔴 Menantang",
+                hasImage: true, imgEmoji: "🧹🧼", imgCap: "Pakulinan Nyapu Lantai",
+                q: "Gatekna ilustrasi pakulinan resik-resik. Apa langkah pisanan sing bener nalika nindakake pakaryan nyapu jogan (lantai)?",
+                options: ["A. Nyiram banyu akeh banget", "B. Nyepakake sapu banjur nyapu reregetan ing lantai", "C. Turu ing lantai", "D. Mbuwang reregetan ing kursi"],
+                answer: 1,
+                explanation: "Nyiapake piranti (sapu) banjur nyapu reregetan minangka prosedur sing bener."
+            },
+            {
+                id: 30, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Contoh pakulinan becik sadurunge mangkat sekolah yaiku...",
+                options: ["A. Pamitan lan salaman marang wong tuwa", "B. Mlayu-mlayu tanpa pamit", "C. Turu gasik ing kelas", "D. Ora gawa buku"],
+                answer: 0,
+                explanation: "Pamitan marang wong tuwa minangka pakulinan luhur sadurunge mangkat sekolah."
+            },
+            {
+                id: 31, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Nalika maca teks prosedur ngenani cara nggunakake piranti listrik, sikape kudu...",
+                options: ["A. Sembrono lan grusa-grusu", "B. Ngati-ati lan nututi aturan sing ana", "C. Dibanting wae", "D. Ora diwaca"],
+                answer: 1,
+                explanation: "Nggunakake piranti mbutuhake katitihen lan ngati-ati."
+            },
+            {
+                id: 32, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Micara bab pakulinan ing ngarep kelas luwih becik nggunakake swara sing...",
+                options: ["A. Cetha, banter sedheng, lan sopan", "B. Pretelin tanpa aturan", "C. Bisik-bisik ora krungu", "D. Sambil nangis"],
+                answer: 0,
+                explanation: "Micara sing apik migunakake swara cetha lan intonasi sing trep."
+            },
+            {
+                id: 33, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Nulis ukara pitakon ing babagan pakulinan biasane nggunakake tembung pitakon kayata...",
+                options: ["A. Apa, kepiye, sapa, ing ngendi", "B. Sapa, kowe, mangan", "C. Gedhe, cilik, dhuwur", "D. Lan, sarta, nanging"],
+                answer: 0,
+                explanation: "Tembung pitakon kayata apa, kepiye, sapa, ing ngendi digunakake kanggo nggawe ukara pitakon."
+            },
+            {
+                id: 34, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Kepiye urutan sing bener nggawe teh manis panas miturut teks prosedur?",
+                options: ["A. Tuang banyu adhem, gula, teh, banjur dibuang", "B. Nyepakake teh celup, gula, banyu panas, gelas, banjur diseduh", "C. Langsung diombe banyune mentah", "D. Gula dicokot dhisik"],
+                answer: 1,
+                explanation: "Prosedur nggawe teh yaiku nyepakake bahan/piranti banjur nyeduh nganggo banyu panas."
+            },
+            {
+                id: 35, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Pakulinan tangi esuk gasik banjur nata kamar turu kalebu pakulinan sing...",
+                options: ["A. Ala lan mbebayani", "B. Becik lan migunani kanggo kesehatan", "C. Ora ana gunane", "D. Nggawe kesed"],
+                answer: 1,
+                explanation: "Tangi gasik lan nata kamar minangka pakulinan sing apik banget."
+            },
+            {
+                id: 36, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Maca teks kanthi lancer ing Wulangan 3 nggunakake bahan wacan babagan...",
+                options: ["A. Pakulinan sadina-dina", "B. Dongeng khayalan", "C. Rumus matematika", "D. Sejarah donya"],
+                answer: 0,
+                explanation: "Wacan ing Wulangan 3 magepokan karo pakulinan sadina-dina."
+            },
+            {
+                id: 37, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Yen arep nindakake pakaryan gawe kerajinan saka kertas, piranti sing perlu disiapake yaiku...",
+                options: ["A. Gunting, kertas, lan lem", "B. Wedhi lan watu", "C. Sendok lan piring", "D. Ember lan banyu"],
+                answer: 0,
+                explanation: "Gunting, kertas, lan lem minangka piranti kanggo kerajinan kertas."
+            },
+            {
+                id: 38, wulangan: 3, wulanganName: "Wulangan 3 – Pakulinan", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Gladhen Pasinaon Wulangan 3 tujuane kanggo nguji pira panguwasane siswa marang materi...",
+                options: ["A. Teks prosedur lan pakulinan", "B. Sandhangan wyanjana", "C. Tembang macapat", "D. Kasarasan jasmani"],
+                answer: 0,
+                explanation: "Gladhen Wulangan 3 nguji teks prosedur lan pakulinan."
+            },
+
+            // ================= WULANGAN 4 – AKSARA JAWA (12 Soal) =================
+            {
+                id: 39, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Sandhangan aksara Jawa sing digunakake kanggo nyigeg wanda (mati ing pungkasan suku kata) yaiku sandhangan...",
+                options: ["A. Sandhangan Wyanjana", "B. Sandhangan Panyigeg Wanda", "C. Sandhangan Swara", "D. Pasangan aksara"],
+                answer: 1,
+                explanation: "Sandhangan panyigeg wanda digunakake kanggo nyigeg wanda (layar, wignyan, cecak, pangkon)."
+            },
+            {
+                id: 40, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟡 Sedheng",
+                hasImage: true, imgEmoji: "ꦲꦤꦕꦫꦏ", imgCap: "Aksara Jawa & Sandhangan",
+                q: "Jenenge sandhangan panyigeg wanda sing swarane 'h' ing pungkasan wanda yaiku...",
+                options: ["A. Layar", "B. Wignyan", "C. Cecak", "D. Pangkon"],
+                answer: 1,
+                explanation: "Wignyan (ꦃ) minangka sandhangan panyigeg wanda paten h."
+            },
+            {
+                id: 41, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Sandhangan wyanjana ing aksara Jawa kasusun saka apa wae?",
+                options: ["A. Cakra, keret, lan pengkal", "B. Layar, wignyan, cecak", "C. Wulu, suku, pepet", "D. Taling, taling tarung"],
+                answer: 0,
+                explanation: "Sandhangan wyanjana cacahe ana telu yaiku cakra (-ra), keret (-re), lan pengkal (-ya)."
+            },
+            {
+                id: 42, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🔴 Menantang",
+                hasImage: true, imgEmoji: "ꦫꦥ꦳ꦺꦴꦂꦩ", imgCap: "Sandhangan Wyanjana Cakra",
+                q: "Apa fungsine sandhangan 'Cakra' (ꦿ) ing aksara Jawa?",
+                options: ["A. Nyigeg paten r", "B. Seselan swara 'ra' ing tengah wanda", "C. Nambah wanda 'ya'", "D. Mateni aksara ing pungkasan"],
+                answer: 1,
+                explanation: "Cakra minangka sandhangan wyanjana seselan ra."
+            },
+            {
+                id: 43, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Sandhangan panyigeg wanda sing mateni swara 'ng' yaiku...",
+                options: ["A. Layar (mateni r)", "B. Wignyan (mateni h)", "C. Cecak (mateni ng)", "D. Pangkon (mateni kabeh)"],
+                answer: 2,
+                explanation: "Cecak (ꦁ) nyigeg wanda nganggo bunyi 'ng'."
+            },
+            {
+                id: 44, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Maca teks aksara Jawa mbutuhake ketelitian marang sandhangan swara, panyigeg, lan...",
+                options: ["A. Wyanjana", "B. Angka romawi", "C. Huruf latin", "D. Tanda kurung"],
+                answer: 0,
+                explanation: "Paugeran maca aksara Jawa ngemot telung jinising sandhangan kasebut."
+            },
+            {
+                id: 45, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🔴 Menantang",
+                hasImage: true, imgEmoji: "ꦏꦽꦠ", imgCap: "Sandhangan Keret",
+                q: "Sandhangan wyanjana 'Keret' (ꦽ) digunakake kanggo seselan swara apa?",
+                options: ["A. -ra", "B. -re / -pepet", "C. -ya", "D. -w"],
+                answer: 1,
+                explanation: "Keret yaiku sandhangan kanggo seselan bunyi 're'."
+            },
+            {
+                id: 46, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Micara utawa maca tembung sing nganggo sandhangan wyanjana lan panyigeg kudu diucapake kanthi...",
+                options: ["A. Cetha lan bener manut paugeran", "B. Sakarepe dewe", "C. Digawe bisu", "D. Tanpa aturan"],
+                answer: 0,
+                explanation: "Pangucapan aksara jawa lan sandhangane kudu trep lan cetha."
+            },
+            {
+                id: 47, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Nulis aksara Jawa sing pungkasaning wanda mati r nggunakake sandhangan panyigeg...",
+                options: ["A. Layar", "B. Wignyan", "C. Cecak", "D. Pangkon"],
+                answer: 0,
+                explanation: "Layar minangka sandhangan panyigeg wanda kanggo paten 'r'."
+            },
+            {
+                id: 48, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟡 Sedheng",
+                hasImage: false,
+                q: "Apa gunane sandhangan 'Pengkal' (ꦾ) ing aksara Jawa?",
+                options: ["A. Seselan swara 'ya'", "B. Seselan swara 'ra'", "C. Seselan swara 'la'", "D. Sigeg ng"],
+                answer: 0,
+                explanation: "Pengkal minangka sandhangan wyanjana seselan 'ya'."
+            },
+            {
+                id: 49, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🔴 Menantang",
+                hasImage: false,
+                q: "Yen ana aksara jawa ing pungkasan ukara lan kudu dipateni total (mati mati), sandhangan panyigeg sing digunakake yaiku...",
+                options: ["A. Layar", "B. Wignyan", "C. Pangkon", "D. Cecak"],
+                answer: 2,
+                explanation: "Pangkon digunakake kanggo mateni aksara ing pungkasan ukara utawa tembung."
+            },
+            {
+                id: 50, wulangan: 4, wulanganName: "Wulangan 4 – Aksara Jawa", diff: "🟢 Gampang",
+                hasImage: false,
+                q: "Gladhen Pasinaon Wulangan 4 minangka evaluasi pungkasan babagan...",
+                options: ["A. Sandhangan panyigeg wanda lan wyanjana aksara Jawa", "B. Cara nggawe panganan", "C. Tembang macapat", "D. Kerukunan tangga"],
+                answer: 0,
+                explanation: "Gladhen Wulangan 4 mligi nguji panguwasane aksara Jawa lan sandhangane."
+            }
+        ];
+
+        // --- MATERI DATABASE FOR 4 WORLDS ---
+        const materiData = {
+            1: {
+                title: "Wulangan 1 – Kasarasan",
+                badge: "DUNIA 1 🌾",
+                content: `
+                    <h3 class="font-extrabold text-emerald-900 text-lg mb-2">A. Ayo Nyemak Teks Eksposisi Babagan Kasarasan</h3>
+                    <p class="mb-3">Kasarasan tegese kasehatan utawa kawarasan awak. Supaya awak tansah sehat, kita kudu njaga kebersihan diri, lingkungan, lan mangan panganan sing bergizi seimbang. Teks eksposisi kasarasan nerangake pentinge njaga kesehatan supaya adoh saka warna-warni penyakit.</p>
+                    
+                    <h3 class="font-extrabold text-emerald-900 text-lg mb-2">B. Ayo Maca Teks Sastra Tembang Macapat Maskumambang</h3>
+                    <p class="mb-3">Tembang Maskumambang kalebu salah siji tembang macapat tradisional Jawa. Watek tembang Maskumambang racake nggambarake rasa susah, nelangsa, utawa welas asih marang kahanan urip.</p>
+                    
+                    <h3 class="font-extrabold text-emerald-900 text-lg mb-2">C. Ayo Micara Bab Kasarasan</h3>
+                    <p class="mb-3">Micara utawa omong-omongan babagan kasarasan marang wong tuwa utawa bapak ibu guru kudu nggunakake undha-usuk basa sing bener, yaiku <strong>Basa Krama Alus</strong> supaya luwih ngajeni.</p>
+                    
+                    <h3 class="font-extrabold text-emerald-900 text-lg mb-2">D. Ayo Nulis Bab Kasarasan</h3>
+                    <p class="mb-3">Nulis ukara utawa karangan cilik babagan kasarasan kudu bener tata penulisan, ejaan, lan nggunakake tanda waca (titik, koma) kanthi trep.</p>
+                `
+            },
+            2: {
+                title: "Wulangan 2 – Kerukunan",
+                badge: "DUNIA 2 🤝",
+                content: `
+                    <h3 class="font-extrabold text-teal-900 text-lg mb-2">A. Ayo Nyemak Teks Eksposisi Babagan Karukunan</h3>
+                    <p class="mb-3">Karukunan tegese urip bebarengan kanthi tentrem, adoh saka pasulayan utawa permusuhan, baik ing lingkungan kulawarga, sekolah, utawa masarakat.</p>
+                    
+                    <h3 class="font-extrabold text-teal-900 text-lg mb-2">B. Ayo Maca Teks Kanthi Lancer</h3>
+                    <p class="mb-3">Maca teks kanthi lancar tegese maca ukara kanthi swara cetha, lafal sing bener, lan ora tersendat-sendat supaya wong sing ngrungokake bisa paham isi wacan.</p>
+                    
+                    <h3 class="font-extrabold text-teal-900 text-lg mb-2">C. Ayo Micara Bab Pitutur Luhur Ngenani Karukunan</h3>
+                    <p class="mb-3">Pitutur luhur ngemot piwulang becik, kayata "Becik ketitik ala ketara", sing mulangake supaya tansah tumindak rukun lan asah asih asuh.</p>
+                    
+                    <h3 class="font-extrabold text-teal-900 text-lg mb-2">D. Ayo Nulis Bab Karukunan</h3>
+                    <p class="mb-3">Nulis ukara babagan gotong royong lan urip rukun ing masarakat minangka wujud tresna marang sesama warga.</p>
+                `
+            },
+            3: {
+                title: "Wulangan 3 – Pakulinan",
+                badge: "DUNIA 3 🏡",
+                content: `
+                    <h3 class="font-extrabold text-amber-900 text-lg mb-2">A. Ayo Nyemak Teks Prosedur</h3>
+                    <p class="mb-3">Teks prosedur yaiku teks sing menehi arah utawa tuntunan babagan <strong>cara gawe barang, nggunakaké barang, lan cara nindakaké pakaryan</strong>. Lumrahe ngemot bahan/piranti lan urutan langkah.</p>
+                    
+                    <h3 class="font-extrabold text-amber-900 text-lg mb-2">B. Ayo Maca Teks Kanthi Lancer</h3>
+                    <p class="mb-3">Latihan maca teks prosedur lan pakulinan sadina-dina kanthi intonasi lan lafal sing trep.</p>
+                    
+                    <h3 class="font-extrabold text-amber-900 text-lg mb-2">C. Ayo Micara Bab Pakulinan</h3>
+                    <p class="mb-3">Mbahas pakulinan becik ing saben dinane, kayata tangi gasik, nata kamar, pamitan, lan ngrewangi wong tuwa.</p>
+                    
+                    <h3 class="font-extrabold text-amber-900 text-lg mb-2">D. Ayo Nulis Bab Pakulinan</h3>
+                    <p class="mb-3">Nulis ukara utawa wangsulan babagan pakulinan sing bener lan runtut.</p>
+                `
+            },
+            4: {
+                title: "Wulangan 4 – Aksara Jawa",
+                badge: "DUNIA 4 📜",
+                content: `
+                    <h3 class="font-extrabold text-indigo-900 text-lg mb-2">A. Ayo Nyemak Sandhangan Panyigeg Wanda lan Wyanjana</h3>
+                    <p class="mb-3"><strong>Sandhangan Panyigeg Wanda</strong> cacahe ana patang macem: <em>Wignyan</em> (-h), <em>Layar</em> (-r), <em>Cecak</em> (-ng), lan <em>Pangkon</em> (mateni).<br><strong>Sandhangan Wyanjana</strong> cacahe telu: <em>Cakra</em> (-ra), <em>Keret</em> (-re), lan <em>Pengkal</em> (-ya).</p>
+                    
+                    <h3 class="font-extrabold text-indigo-900 text-lg mb-2">B. Ayo Maca Teks Aksara Jawa</h3>
+                    <p class="mb-3">Latihan maca tembung utawa ukara aksara Jawa sing wis dijangkepi sandhangan panyigeg wanda lan wyanjana.</p>
+                    
+                    <h3 class="font-extrabold text-indigo-900 text-lg mb-2">C. Ayo Micara Babagan Sandhangan</h3>
+                    <p class="mb-3">Nerangake lan ngandhakake fungsi lan panggunaan sandhangan aksara Jawa kanthi lesan.</p>
+                    
+                    <h3 class="font-extrabold text-indigo-900 text-lg mb-2">D. Ayo Nulis Bab Sandhangan</h3>
+                    <p class="mb-3">Latihan nulis aksara Jawa lan masang sandhangan sing bener manut paugeran baku.</p>
+                `
+            }
+        };
+
+        // --- NAVIGATION CONTROLLER ---
+        function showView(viewId) {
+            const views = ['viewWelcome', 'viewGuide', 'viewMap', 'viewMateri', 'viewQuiz', 'viewResult', 'viewCertificate'];
+            views.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startAdventure() {
+            const nameInput = document.getElementById('inputName').value.trim();
+            if (!nameInput) {
+                alert("Dhuh, wilujeng! Mangga diisi rumiyin jenengmu (nama siswa) sadurunge miwiti.");
+                return;
+            }
+            studentName = nameInput;
+            document.getElementById('displayName').innerText = studentName;
+            document.getElementById('userStatus').classList.remove('hidden');
+            document.getElementById('userStatus').classList.add('flex');
+            
+            // Show Guide / Petunjuk Permainan first
+            showView('viewGuide');
+        }
+
+        function showMap() {
+            showView('viewMap');
+        }
+
+        // --- MATERI NAVIGATION ---
+        let lastActiveQuizWulangan = null;
+        function openMateri(wulanganNum) {
+            const mat = materiData[wulanganNum];
+            document.getElementById('materiBadge').innerText = mat.badge;
+            document.getElementById('materiTitle').innerText = mat.title;
+            document.getElementById('materiContentArea').innerHTML = mat.content;
+            showView('viewMateri');
+        }
+
+        function openMateriFromQuiz() {
+            // Keep track of current quiz filter so we can return easily
+            openMateri(currentQuizList[currentQuizIndex].wulangan);
+        }
+
+        function backToQuizFromMateri() {
+            showView('viewQuiz');
+        }
+
+        function backToMap() {
+            showView('viewMap');
+        }
+
+        // --- QUIZ ENGINE ---
+        function startQuiz(wulanganNum) {
+            activeWulanganFilter = wulanganNum;
+            currentQuizList = allQuestions.filter(q => q.wulangan === wulanganNum);
+            currentQuizIndex = 0;
+            score = 0;
+            userAnswersRecord = [];
+            document.getElementById('quizScoreVal').innerText = score;
+            document.getElementById('displayScore').innerText = score;
+            showView('viewQuiz');
+            loadQuizQuestion();
+        }
+
+        function startFullQuiz() {
+            activeWulanganFilter = null; // Full 50
+            currentQuizList = [...allQuestions];
+            currentQuizIndex = 0;
+            score = 0;
+            userAnswersRecord = [];
+            document.getElementById('quizScoreVal').innerText = score;
+            document.getElementById('displayScore').innerText = score;
+            showView('viewQuiz');
+            loadQuizQuestion();
+        }
+
+        function loadQuizQuestion() {
+            const qObj = currentQuizList[currentQuizIndex];
+            const total = currentQuizList.length;
+
+            document.getElementById('quizWulanganTag').innerText = qObj.wulanganName;
+            document.getElementById('quizProgressNum').innerText = `SOAL ${currentQuizIndex + 1} SAKA ${total}`;
+            document.getElementById('quizDifficulty').innerText = qObj.diff;
+
+            // Progress bar
+            const percent = ((currentQuizIndex + 1) / total) * 100;
+            document.getElementById('quizProgressBar').style.width = percent + '%';
+
+            // Image handling
+            const imgContainer = document.getElementById('quizImageContainer');
+            if (qObj.hasImage) {
+                imgContainer.classList.remove('hidden');
+                document.getElementById('quizImageVisual').innerText = qObj.imgEmoji;
+                document.getElementById('quizImageCaption').innerText = qObj.imgCap;
+            } else {
+                imgContainer.classList.add('hidden');
+            }
+
+            document.getElementById('quizQuestionText').innerText = qObj.q;
+
+            // Options
+            const grid = document.getElementById('quizOptionsGrid');
+            grid.innerHTML = '';
+            qObj.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 font-semibold text-slate-800 transition text-sm md:text-base flex items-center space-x-3 shadow-sm";
+                btn.innerHTML = `<span class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center font-bold text-emerald-800 flex-shrink-0">${String.fromCharCode(65 + idx)}</span><span>${opt.substring(3)}</span>`;
+                btn.onclick = () => selectAnswer(idx);
+                grid.appendChild(btn);
+            });
+
+            // Hide feedback and next
+            document.getElementById('quizFeedbackBox').classList.add('hidden');
+            document.getElementById('btnNextQuiz').classList.add('hidden');
+        }
+
+        function selectAnswer(selectedIndex) {
+            const qObj = currentQuizList[currentQuizIndex];
+            const correctIndex = qObj.answer;
+            const isCorrect = (selectedIndex === correctIndex);
+
+            // Disable all option buttons after click
+            const buttons = document.getElementById('quizOptionsGrid').children;
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+                if (i === correctIndex) {
+                    buttons[i].classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-900');
+                } else if (i === selectedIndex && !isCorrect) {
+                    buttons[i].classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+                }
+            }
+
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                score += 20; // 20 points per question (Max 1000 for 50 questions)
+                document.getElementById('quizScoreVal').innerText = score;
+                document.getElementById('displayScore').innerText = score;
+
+                feedbackBox.className = "p-4 rounded-2xl mb-4 border bg-emerald-50 border-emerald-300 text-emerald-900 text-sm";
+                document.getElementById('feedbackTitle').innerText = `✓ WANGSULAN BENER! Apik banget, ${studentName}!`;
+                document.getElementById('feedbackText').innerText = qObj.explanation;
+            } else {
+                feedbackBox.className = "p-4 rounded-2xl mb-4 border bg-rose-50 border-rose-300 text-rose-900 text-sm";
+                document.getElementById('feedbackTitle').innerText = `✗ DURUNG BENER, ${studentName}. Ayo sinau maneh!`;
+                document.getElementById('feedbackText').innerHTML = `Wangsulan sing bener yaiku: <strong>${qObj.options[correctIndex]}</strong><br><span class="text-xs mt-1 block">${qObj.explanation}</span>`;
+            }
+
+            userAnswersRecord.push({ qId: qObj.id, correct: isCorrect });
+
+            // Show next button
+            document.getElementById('btnNextQuiz').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < currentQuizList.length) {
+                loadQuizQuestion();
+            } else {
+                showFinalResult();
+            }
+        }
+
+        // --- FINAL RESULTS & CERTIFICATE ---
+        function showFinalResult() {
+            const correctCount = userAnswersRecord.filter(r => r.correct).length;
+            const wrongCount = userAnswersRecord.length - correctCount;
+
+            document.getElementById('resultStudentName').innerText = `Wilujeng, ${studentName}!`;
+            document.getElementById('finalScoreVal').innerText = score;
+            document.getElementById('finalCorrectCount').innerText = correctCount;
+            document.getElementById('finalWrongCount').innerText = wrongCount;
+
+            // Badge based on score
+            const badgeBox = document.getElementById('badgeRewardBox');
+            if (score >= 900) {
+                badgeBox.innerText = "🏆 JAGO BASA JAWA (Sempurna!)";
+            } else if (score >= 700) {
+                badgeBox.innerText = "🌟 PETUALANG BASA JAWA (Hebat!)";
+            } else {
+                badgeBox.innerText = "💪 PEJUANG SINAU BASA JAWA (Tetep Semangat!)";
+            }
+
+            showView('viewResult');
+        }
+
+        function showCertificate() {
+            const correctCount = userAnswersRecord.filter(r => r.correct).length;
+            const totalQ = currentQuizList.length;
+            const todayStr = new Date().toISOString().slice(0, 10);
+
+            document.getElementById('certStudentName').innerText = studentName;
+            document.getElementById('certScore').innerText = `${score} / ${totalQ * 20}`;
+            document.getElementById('certCorrect').innerText = `${correctCount} saka ${totalQ} soal`;
+            document.getElementById('certDate').innerText = todayStr;
+
+            showView('viewCertificate');
+        }
+
+        function backToResult() {
+            showView('viewResult');
+        }
+
+        function restartQuiz() {
+            score = 0;
+            currentQuizIndex = 0;
+            userAnswersRecord = [];
+            document.getElementById('displayScore').innerText = 0;
+            showMap();
+        }
+    </script>
+</body>
+</html>
